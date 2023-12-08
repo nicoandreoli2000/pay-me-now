@@ -1,0 +1,12 @@
+{
+  "name": "pay-me-now",
+  "version": "1.0.0",
+  "workspaces": [
+    "app",
+    "server"
+  ],
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:app": "cd app && npm run dev"
+  }
+}
