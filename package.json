@@ -6,7 +6,7 @@
     "server"
   ],
   "scripts": {
-    "dev:server": "cd server && npm run dev",
-    "dev:app": "cd app && npm run dev"
+    "dev:server": "cd server && bun dev",
+    "dev:app": "cd app && bun dev"
   }
 }
