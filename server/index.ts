@@ -38,6 +38,24 @@ app.post("/expenses", async (req, res) => {
   }
 });
 
+app.delete("/expenses/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const expense = await Expense.findById(id);
+
+    if (!expense) {
+      return res.status(404).send({ message: "Expense not found" });
+    }
+
+    await expense.deleteOne();
+    res.send(expense);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
+
 app.patch("/expenses/:id", async (req, res) => {
   const { id } = req.params;
   const { amount, name } = req.body;
