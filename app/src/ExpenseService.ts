@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateExpense, Expense, UpdateExpense } from "./Expense";
 
 const ExpenseService = {
   getAll: (): Promise<Expense[]> => {
-    return fetch("http://localhost:3000/expenses").then((response) =>
-      response.json()
-    );
+    return fetch("http://localhost:3000/expenses")
+      .then((response) => response.json())
+      .then((data) =>
+        data.map((expense: any) => ({
+          ...expense,
+          date: new Date(expense.date),
+        }))
+      );
   },
   create: (expense: CreateExpense): Promise<Expense> => {
     return fetch("http://localhost:3000/expenses", {
@@ -16,6 +22,8 @@ const ExpenseService = {
       body: JSON.stringify(expense),
     }).then((response) => response.json());
   },
+
+  //not used
   update: (expense: UpdateExpense): Promise<Expense> => {
     return fetch(`http://localhost:3000/expenses/${expense.id}`, {
       method: "PATCH",
